@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
+const connection = require('../libs/databaseConfig');
 
-const connection = require('../libs/databaseConfig')
 const sequelize = new Sequelize(
     connection.database,
     connection.user,
@@ -20,5 +20,13 @@ const sequelize = new Sequelize(
 db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
+
+//Imports
+db.user = require('../models/user.models')(sequelize, Sequelize);
+db.role = require('../models/role.models.js')(sequelize, Sequelize);
+
+//Associations
+db.role.hasMany(db.user, { foreignKey: 'Role_ID' });
+db.user.belongsTo(db.role, { foreignKey: 'Role_ID' });
 
 module.exports = db;
