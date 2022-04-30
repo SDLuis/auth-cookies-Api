@@ -62,7 +62,7 @@ const logout = async (req, res) => {
     res.cookie('jwt', '', {maxAge: 0})
 
     res.send({
-        message: 'success'
+        message: 'U re logout'
     })
 }
 
